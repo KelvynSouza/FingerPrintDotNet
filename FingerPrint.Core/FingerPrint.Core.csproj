@@ -183,7 +183,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Events\ImageComparisionEvent.cs" />
     <Compile Include="Helper\ProcessImageHelper.cs" />
     <Compile Include="WPF\BitmapSourceConverter.cs" />
     <Page Include="MainWindow.xaml">

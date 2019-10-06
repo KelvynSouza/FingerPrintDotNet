@@ -16,7 +16,9 @@ namespace FingerPrint.Core.Helper
     public class ProcessImageHelper
     {
         public Mat _input_thinned;
-        public Mat PrepareImage(Mat Image)
+
+        //Skelatanize firngerprint to use later. 
+        private Mat PrepareImage(Mat Image)
         {
             Mat inputBinary = new Mat();
             CvInvoke.Threshold(Image, inputBinary, 0, 255, ThresholdType.Binary | ThresholdType.Otsu);            
@@ -28,7 +30,8 @@ namespace FingerPrint.Core.Helper
             return harris_normalised;
         }
 
-        public Mat FingerprintRecognition(Mat input)
+        //Get fingerprint characteristics and turn into Descriptor to compare later.
+        public Mat FingerprintDescriptor(Mat input)
         {
             var harris_normalised = PrepareImage(input);
 
@@ -67,7 +70,7 @@ namespace FingerPrint.Core.Helper
 
         }
 
-        public static float GetFloatValue(Mat mat, int row, int col)
+        private float GetFloatValue(Mat mat, int row, int col)
         {
             var value = new float[1];
             Marshal.Copy(mat.DataPointer + (row * mat.Cols + col) * mat.ElementSize, value, 0, 1);
@@ -75,7 +78,7 @@ namespace FingerPrint.Core.Helper
         }
 
 
-        public static Image<Gray, byte> Skelatanize(Bitmap image)
+        private static Image<Gray, byte> Skelatanize(Bitmap image)
         {
             Image<Gray, byte> imgOld = new Image<Gray, byte>(image);
             Image<Gray, byte> img2 = (new Image<Gray, byte>(imgOld.Width, imgOld.Height, new Gray(255))).Sub(imgOld);

@@ -128,9 +128,9 @@ namespace FingerPrint.Core.Controller
         {
             ProcessImageHelper processImage = new ProcessImageHelper();
             Mat input = CvInvoke.Imread(@"Source\digital2.jpg", ImreadModes.Grayscale);
-            Mat input2 = CvInvoke.Imread(@"Source\digital2.jpg", ImreadModes.Grayscale);
-            var descriptors1 = processImage.FingerprintRecognition(input);
-            var descriptors2 = processImage.FingerprintRecognition(input2);
+            Mat input2 = CvInvoke.Imread(@"Source\digital.png", ImreadModes.Grayscale);
+            var descriptors1 = processImage.FingerprintDescriptor(input);
+            var descriptors2 = processImage.FingerprintDescriptor(input2);
             return CompareImages(descriptors1, descriptors2);
             
         }
@@ -148,7 +148,7 @@ namespace FingerPrint.Core.Controller
                 //Algorithm to Compare fingerprints
                 //Calculate score
                 float score = 0;
-                foreach (MDMatch match in matches.ToArray())
+                foreach (MDMatch match in matches.ToArray())                    
                     score += match.Distance;
                 float score_threshold = 33;
                 if (score / matches.ToArray().Length < score_threshold)
