@@ -1,4 +1,6 @@
 ﻿using FingerPrint.Core.Controller;
+using FingerPrint.Data.Model;
+using FingerPrint.Data.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +28,11 @@ namespace FingerPrint.Core
             InitializeComponent();
         }
 
-        private void Processar(object sender, RoutedEventArgs e)
+        private async void Processar(object sender, RoutedEventArgs e)
         {
-           var result = new ImageController().CompareDatabase();
+            UserData user = new UserData();
+            await user.Delete("7");
+           //var result = new ImageController().CompareDatabase();
             
             
         }
