@@ -31,7 +31,7 @@ namespace FingerPrint.Core
         private async void Processar(object sender, RoutedEventArgs e)
         {
             UserData user = new UserData();
-            await user.Delete("7");
+            var result = await user.Get("6");
            //var result = new ImageController().CompareDatabase();
             
             

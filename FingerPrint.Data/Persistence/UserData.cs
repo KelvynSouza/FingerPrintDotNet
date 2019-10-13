@@ -73,22 +73,22 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<DataTable> Get(string id)
+        public async Task<User> Get(string id)
         {
-            return await Task.Run(() =>
+            return await Task.Run<User>(() =>
             {
                 try
                 {
                     _con.Open();
                     DataTable dt = new DataTable();
-                    _adapt = new SqlDataAdapter(string.Format("SELECT @ from [dbo].[Users] WHERE [Id]={0}",id), _con);                    
+                    _adapt = new SqlDataAdapter(string.Format("SELECT * from [dbo].[Users] WHERE [Id]={0}",id), _con);  
                     _adapt.Fill(dt);
-                    return dt;
+                    return Helper.Table.ToModel<User>(dt);
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new DataTable();
+                    return new User();
                 }
                 finally
                 {
@@ -97,9 +97,9 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<DataTable> GetAll()
+        public async Task<ICollection<User>> GetAll()
         {
-            return await Task.Run(() =>
+            return await Task.Run<ICollection<User>>(() =>
             {
                 try
                 {
@@ -107,12 +107,14 @@ namespace FingerPrint.Data.Persistence
                     DataTable dt = new DataTable();
                     _adapt = new SqlDataAdapter("SELECT * from [dbo].[Users]", _con);
                     _adapt.Fill(dt);
-                    return dt;
+                    return Helper.Table.ToListModel<User>(dt);
+                    
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new DataTable();
+                    return new List<User>();
+
                 }
                 finally
                 {
@@ -130,7 +132,7 @@ namespace FingerPrint.Data.Persistence
 
                     _cmd = new SqlCommand("UPDATE [dbo].[Users] set [First Name]=@firstname, [Last Name]=@lastname, [BirthDate]=@birthdate, [JobName]=@job WHERER Id=@id", _con);
                     _con.Open();
-                    _cmd.Parameters.AddWithValue("@Id", user.ID);
+                    _cmd.Parameters.AddWithValue("@Id", user.Id);
                     _cmd.Parameters.AddWithValue("@firstname", user.FirstName);
                     _cmd.Parameters.AddWithValue("@lastname", user.LastName);
                     _cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
@@ -149,5 +151,9 @@ namespace FingerPrint.Data.Persistence
 
             });
         }
+
+        
+
     }
+ 
 }

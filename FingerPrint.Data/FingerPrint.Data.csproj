@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -46,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompareResult.cs" />
+    <Compile Include="Helper\Table.cs" />
     <Compile Include="Model\FingerPrint.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserRights.cs" />
@@ -55,6 +57,5 @@
     <Compile Include="Persistence\UserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
