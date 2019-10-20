@@ -48,9 +48,9 @@
   <ItemGroup>
     <Compile Include="CompareResult.cs" />
     <Compile Include="Helper\Table.cs" />
-    <Compile Include="Model\FingerPrint.cs" />
-    <Compile Include="Model\User.cs" />
-    <Compile Include="Model\UserRights.cs" />
+    <Compile Include="Model\FingerprintModel.cs" />
+    <Compile Include="Model\UserModel.cs" />
+    <Compile Include="Model\UserRightsModel.cs" />
     <Compile Include="Persistence\IFingerPrintData.cs" />
     <Compile Include="Persistence\IUserData.cs" />
     <Compile Include="Persistence\IUserRightsData.cs" />

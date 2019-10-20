@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace FingerPrint.Data.Model
 {
    
-    public class User
+    public class UserModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

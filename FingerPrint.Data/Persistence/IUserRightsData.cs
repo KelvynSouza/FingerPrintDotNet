@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace FingerPrint.Data.Persistence
 {
-    interface IUserRightsData
+    public interface IUserRightsData
     {
-        public Task<ICollection<UserRights>> GetAll();
-        public Task<UserRights> Get(int id);
-        public Task<bool> Create(UserRights user);
-        public Task<bool> Update(UserRights user);
+        public Task<ICollection<UserRightsModel>> GetAll();
+        public Task<UserRightsModel> Get(int id);
+        public Task<bool> Create(UserRightsModel user);
+        public Task<bool> Update(UserRightsModel user);
         public Task<bool> Delete(int id);
     }
 }

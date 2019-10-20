@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FingerPrint.Data.Model
 {
-    public class UserRights 
+    public class UserRightsModel 
     {
         public int Id { get; set; }
         public bool Read { get; set; }

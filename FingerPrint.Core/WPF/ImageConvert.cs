@@ -8,10 +8,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
 
 namespace Emgu.CV.WPF
 {
-    public static class BitmapSourceConvert
+    public static class ImageConvert
     {
         /// <summary>
         /// Delete a GDI object
@@ -88,6 +89,31 @@ namespace Emgu.CV.WPF
                           IntPtr.Zero,
                           Int32Rect.Empty,
                           BitmapSizeOptions.FromEmptyOptions());
+        }
+
+        public static Mat GetMatFromImage(Image image)
+        {
+            int stride = 0;
+            Bitmap bmp = new Bitmap(image);
+
+            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height);
+            System.Drawing.Imaging.BitmapData bmpData = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, bmp.PixelFormat);
+
+            System.Drawing.Imaging.PixelFormat pf = bmp.PixelFormat;
+            if (pf == System.Drawing.Imaging.PixelFormat.Format1bppIndexed)
+            {
+                stride = bmp.Width * 4;
+            }
+            else
+            {
+                stride = bmp.Width * 3;
+            }
+
+            Image<Gray, byte> cvImage = new Image<Gray, byte>(bmp.Width, bmp.Height, stride, (IntPtr)bmpData.Scan0);
+
+            bmp.UnlockBits(bmpData);
+
+            return cvImage.Mat;
         }
     }
 }

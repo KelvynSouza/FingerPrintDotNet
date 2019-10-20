@@ -23,7 +23,7 @@ namespace FingerPrint.Data.Persistence
             _con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FingerPrintApp;Integrated Security=True;");
         }
 
-        public async Task<bool> Create(Fingerprint userR)
+        public async Task<bool> Create(FingerprintModel userR)
         {
             return await Task.Run<bool>(() =>
             {
@@ -77,9 +77,9 @@ namespace FingerPrint.Data.Persistence
         }
 
         
-        public async Task<Fingerprint> Get(int Userid)
+        public async Task<ICollection<FingerprintModel>> Get(int Userid)
         {
-            return await Task.Run<Fingerprint>(() =>
+            return await Task.Run<ICollection<FingerprintModel>>(() =>
             {
                 try
                 {
@@ -87,12 +87,12 @@ namespace FingerPrint.Data.Persistence
                     DataTable dt = new DataTable();
                     _adapt = new SqlDataAdapter(string.Format("SELECT * from [dbo].[FingerPrints] WHERE [UserId]={0}", Userid), _con);  
                     _adapt.Fill(dt);
-                    return Helper.Table.ToModel<Fingerprint>(dt);
+                    return Helper.Table.ToListModel<FingerprintModel>(dt);
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new Fingerprint();
+                    return new List<FingerprintModel>();
                 }
                 finally
                 {
@@ -101,9 +101,9 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<ICollection<Fingerprint>> GetAll()
+        public async Task<ICollection<FingerprintModel>> GetAll()
         {
-            return await Task.Run<ICollection<Fingerprint>>(() =>
+            return await Task.Run<ICollection<FingerprintModel>>(() =>
             {
                 try
                 {
@@ -111,13 +111,13 @@ namespace FingerPrint.Data.Persistence
                     DataTable dt = new DataTable();
                     _adapt = new SqlDataAdapter("SELECT * from [dbo].[FingerPrints]", _con);
                     _adapt.Fill(dt);
-                    return Helper.Table.ToListModel<Fingerprint>(dt);
+                    return Helper.Table.ToListModel<FingerprintModel>(dt);
                     
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new List<Fingerprint>();
+                    return new List<FingerprintModel>();
 
                 }
                 finally
@@ -127,7 +127,7 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<bool> Update(Fingerprint userR)
+        public async Task<bool> Update(FingerprintModel userR)
         {
             return await Task.Run<bool>(() =>
             {

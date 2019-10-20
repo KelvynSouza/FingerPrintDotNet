@@ -3,6 +3,9 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Features2D;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using Emgu.CV.WPF;
+using FingerPrint.Data.Model;
+using FingerPrint.Data.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,14 +13,21 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using BitConvert = Emgu.CV.WPF.BitmapSourceConvert;
-namespace FingerPrint.Core.Helper
+using BitConvert = Emgu.CV.WPF.ImageConvert;
+namespace FingerPrint.Core.Events
 {
-    public class ProcessImageHelper
+    public class ProcessImageEvent
     {
-        public Mat _input_thinned;
+        private IFingerPrintData _fingerPrintData;
+        private IUserData _userData;
+        public ProcessImageEvent(IFingerPrintData fingerPrintData, IUserData userData)
+        {
+            _fingerPrintData = fingerPrintData;
+            _userData = userData;
+        }
 
-        //Skelatanize firngerprint to use later. 
+        public Mat _input_thinned;
+                 
         private Mat PrepareImage(Mat Image)
         {
             Mat inputBinary = new Mat();
@@ -29,8 +39,7 @@ namespace FingerPrint.Core.Helper
             CvInvoke.Normalize(harris_corners, harris_normalised, 0, 255, NormType.MinMax, DepthType.Cv32F);           
             return harris_normalised;
         }
-
-        //Get fingerprint characteristics and turn into Descriptor to compare later.
+                
         public Mat FingerprintDescriptor(Mat input)
         {
             var harris_normalised = PrepareImage(input);
@@ -76,8 +85,7 @@ namespace FingerPrint.Core.Helper
             Marshal.Copy(mat.DataPointer + (row * mat.Cols + col) * mat.ElementSize, value, 0, 1);
             return value[0];
         }
-
-
+        
         private static Image<Gray, byte> Skelatanize(Bitmap image)
         {
             Image<Gray, byte> imgOld = new Image<Gray, byte>(image);
@@ -101,5 +109,47 @@ namespace FingerPrint.Core.Helper
             }
             return skel;
         }
+
+        public async Task<FingerprintModel> CompareImages(Image input)
+        {
+            BFMatcher bF = new BFMatcher(DistanceType.Hamming);
+            VectorOfDMatch matches = new VectorOfDMatch();
+           
+            var descriptorToCompare = 
+                FingerprintDescriptor(
+                    BitConvert.GetMatFromImage(input)
+                );
+
+            var AllFingerPrints = await _fingerPrintData.GetAll();
+            foreach (FingerprintModel fingerprintDatabase in AllFingerPrints)
+            {
+                var descriptorDatabase = 
+                    FingerprintDescriptor(
+                        BitConvert.GetMatFromImage(
+                            fingerprintDatabase.GetFingerPrintImage()
+                        )
+                    );
+                //Here you put the firgerPrint's Mat you want to compare.
+                bF.Match(descriptorToCompare, descriptorDatabase, matches);
+
+                //Algorithm to Compare fingerprints
+                //Calculate score
+                float score = 0;
+                foreach (MDMatch match in matches.ToArray())
+                    score += match.Distance;
+                float score_threshold = 33;
+                if (score / matches.ToArray().Length < score_threshold)
+                    return fingerprintDatabase;
+                else
+                    continue;
+                                
+            }
+            return null;
+            
+        }
+
+        
+
+        
     }
 }

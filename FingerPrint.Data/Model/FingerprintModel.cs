@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FingerPrint.Data.Model
 {
-    public class Fingerprint
+    public class FingerprintModel
     {
         public int Id { get; set; }
 

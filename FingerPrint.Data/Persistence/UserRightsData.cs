@@ -20,7 +20,7 @@ namespace FingerPrint.Data.Persistence
             _con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FingerPrintApp;Integrated Security=True;");
         }
 
-        public async Task<bool> Create(UserRights userR)
+        public async Task<bool> Create(UserRightsModel userR)
         {
            return await Task.Run<bool>(() =>
             {
@@ -75,9 +75,9 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<UserRights> Get(int Userid)
+        public async Task<UserRightsModel> Get(int Userid)
         {
-            return await Task.Run<UserRights>(() =>
+            return await Task.Run<UserRightsModel>(() =>
             {
                 try
                 {
@@ -85,12 +85,12 @@ namespace FingerPrint.Data.Persistence
                     DataTable dt = new DataTable();
                     _adapt = new SqlDataAdapter(string.Format("SELECT * from [dbo].[UsersRight] WHERE [UserId]={0}", Userid), _con);  
                     _adapt.Fill(dt);
-                    return Helper.Table.ToModel<UserRights>(dt);
+                    return Helper.Table.ToModel<UserRightsModel>(dt);
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new UserRights();
+                    return new UserRightsModel();
                 }
                 finally
                 {
@@ -99,9 +99,9 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<ICollection<UserRights>> GetAll()
+        public async Task<ICollection<UserRightsModel>> GetAll()
         {
-            return await Task.Run<ICollection<UserRights>>(() =>
+            return await Task.Run<ICollection<UserRightsModel>>(() =>
             {
                 try
                 {
@@ -109,13 +109,13 @@ namespace FingerPrint.Data.Persistence
                     DataTable dt = new DataTable();
                     _adapt = new SqlDataAdapter("SELECT * from [dbo].[UsersRight]", _con);
                     _adapt.Fill(dt);
-                    return Helper.Table.ToListModel<UserRights>(dt);
+                    return Helper.Table.ToListModel<UserRightsModel>(dt);
                     
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new List<UserRights>();
+                    return new List<UserRightsModel>();
 
                 }
                 finally
@@ -125,7 +125,7 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<bool> Update(UserRights userR)
+        public async Task<bool> Update(UserRightsModel userR)
         {
             return await Task.Run<bool>(() =>
             {

@@ -20,7 +20,7 @@ namespace FingerPrint.Data.Persistence
             _con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FingerPrintApp;Integrated Security=True;");
         }
 
-        public async Task<bool> Create(User user)
+        public async Task<bool> Create(UserModel user)
         {
             return await Task.Run<bool>(() =>
             {
@@ -75,9 +75,9 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<User> Get(int id)
+        public async Task<UserModel> Get(int id)
         {
-            return await Task.Run<User>(() =>
+            return await Task.Run<UserModel>(() =>
             {
                 try
                 {
@@ -85,12 +85,12 @@ namespace FingerPrint.Data.Persistence
                     DataTable dt = new DataTable();
                     _adapt = new SqlDataAdapter(string.Format("SELECT * from [dbo].[Users] WHERE [Id]={0}",id), _con);  
                     _adapt.Fill(dt);
-                    return Helper.Table.ToModel<User>(dt);
+                    return Helper.Table.ToModel<UserModel>(dt);
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new User();
+                    return new UserModel();
                 }
                 finally
                 {
@@ -99,9 +99,9 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<ICollection<User>> GetAll()
+        public async Task<ICollection<UserModel>> GetAll()
         {
-            return await Task.Run<ICollection<User>>(() =>
+            return await Task.Run<ICollection<UserModel>>(() =>
             {
                 try
                 {
@@ -109,13 +109,13 @@ namespace FingerPrint.Data.Persistence
                     DataTable dt = new DataTable();
                     _adapt = new SqlDataAdapter("SELECT * from [dbo].[Users]", _con);
                     _adapt.Fill(dt);
-                    return Helper.Table.ToListModel<User>(dt);
+                    return Helper.Table.ToListModel<UserModel>(dt);
                     
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new List<User>();
+                    return new List<UserModel>();
 
                 }
                 finally
@@ -125,7 +125,7 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<bool> Update(User user)
+        public async Task<bool> Update(UserModel user)
         {
             return await Task.Run<bool>(() =>
             {
