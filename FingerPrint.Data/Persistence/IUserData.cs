@@ -11,9 +11,9 @@ namespace FingerPrint.Data.Persistence
     interface IUserData
     {
         public Task<ICollection<User>> GetAll();
-        public Task<User> Get(string id);
-        public Task Create(User user);
-        public Task Update(User user);
-        public Task Delete(string id);
+        public Task<User> Get(int id);
+        public Task<bool> Create(User user);
+        public Task<bool> Update(User user);
+        public Task<bool> Delete(int id);
     }
 }

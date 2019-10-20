@@ -12,9 +12,11 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Drawing;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Emgu.CV.WPF;
 
 namespace FingerPrint.Core
 {
@@ -30,11 +32,21 @@ namespace FingerPrint.Core
 
         private async void Processar(object sender, RoutedEventArgs e)
         {
-            UserData user = new UserData();
-            var result = await user.Get("6");
-           //var result = new ImageController().CompareDatabase();
-            
-            
+            FingerPrintData finger = new FingerPrintData();
+            Fingerprint fingerprint = new Fingerprint()
+            {             
+                UserId = 6                
+            };
+            fingerprint.SetFingerPrintImage(System.Drawing.Image.FromFile(@"D:\Imagens\APS\digital.png"));
+            await finger.Create(fingerprint);
+            var result = await finger.Get(6);
+            image2.Source = BitmapSourceConvert.ConvertBitmap((Bitmap)result.GetFingerPrintImage());
+
+            await finger.Delete(result.Id);
+
+            //var result = new ImageController().CompareDatabase();
+
+
         }
 
         private void Reload_Click(object sender, RoutedEventArgs e)

@@ -54,6 +54,8 @@
     <Compile Include="Persistence\IFingerPrintData.cs" />
     <Compile Include="Persistence\IUserData.cs" />
     <Compile Include="Persistence\IUserRightsData.cs" />
+    <Compile Include="Persistence\FingerPrintData.cs" />
+    <Compile Include="Persistence\UserRightsData.cs" />
     <Compile Include="Persistence\UserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

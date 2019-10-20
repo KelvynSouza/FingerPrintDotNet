@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,30 +13,28 @@ using FingerPrint.Data.Model;
 
 namespace FingerPrint.Data.Persistence
 {
-    public class UserData : IUserData
+    public class FingerPrintData : IFingerPrintData
     {
-        private SqlConnection _con;
+        private readonly SqlConnection _con;
         private SqlCommand _cmd;
         private SqlDataAdapter _adapt;
-        public UserData()
+        public FingerPrintData()
         {
             _con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FingerPrintApp;Integrated Security=True;");
         }
 
-        public async Task<bool> Create(User user)
+        public async Task<bool> Create(Fingerprint userR)
         {
             return await Task.Run<bool>(() =>
             {
                 try
                 {
 
-                    _cmd = new SqlCommand("INSERT INTO [dbo].[Users] ([FirstName], [LastName], [BirthDate], [JobName]) " +
-                                                                "VALUES (@firstname, @lastname, @birthdate, @job)", _con);
+                    _cmd = new SqlCommand("INSERT INTO [dbo].[FingerPrints] ([FingerPrintImage], [UserId]) " +
+                                                                "VALUES (@fingerprintImage, @userid)", _con);
                     _con.Open();
-                    _cmd.Parameters.AddWithValue("@firstname", user.FirstName);
-                    _cmd.Parameters.AddWithValue("@lastname", user.LastName);
-                    _cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
-                    _cmd.Parameters.AddWithValue("@job", user.JobName);
+                    _cmd.Parameters.AddWithValue("@fingerprintImage", userR.FingerPrintImage);
+                    _cmd.Parameters.AddWithValue("@userid", userR.UserId);
                     var result = _cmd.ExecuteNonQuery();
                     return true;
                 }
@@ -51,11 +52,11 @@ namespace FingerPrint.Data.Persistence
 
         public async Task<bool> Delete(int id)
         {
-            return await Task.Run<bool>(() =>
+           return await Task.Run<bool>(() =>
             {
                 try
                 {
-                    _cmd = new SqlCommand("DELETE [dbo].[Users] WHERE [Id]=@id", _con);
+                    _cmd = new SqlCommand("DELETE [dbo].[FingerPrints] WHERE [Id]=@id", _con);
                     _con.Open();
                     _cmd.Parameters.AddWithValue("@id", id);
                     _cmd.ExecuteNonQuery();
@@ -75,22 +76,23 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<User> Get(int id)
+        
+        public async Task<Fingerprint> Get(int Userid)
         {
-            return await Task.Run<User>(() =>
+            return await Task.Run<Fingerprint>(() =>
             {
                 try
                 {
                     _con.Open();
                     DataTable dt = new DataTable();
-                    _adapt = new SqlDataAdapter(string.Format("SELECT * from [dbo].[Users] WHERE [Id]={0}",id), _con);  
+                    _adapt = new SqlDataAdapter(string.Format("SELECT * from [dbo].[FingerPrints] WHERE [UserId]={0}", Userid), _con);  
                     _adapt.Fill(dt);
-                    return Helper.Table.ToModel<User>(dt);
+                    return Helper.Table.ToModel<Fingerprint>(dt);
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new User();
+                    return new Fingerprint();
                 }
                 finally
                 {
@@ -99,23 +101,23 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<ICollection<User>> GetAll()
+        public async Task<ICollection<Fingerprint>> GetAll()
         {
-            return await Task.Run<ICollection<User>>(() =>
+            return await Task.Run<ICollection<Fingerprint>>(() =>
             {
                 try
                 {
                     _con.Open();
                     DataTable dt = new DataTable();
-                    _adapt = new SqlDataAdapter("SELECT * from [dbo].[Users]", _con);
+                    _adapt = new SqlDataAdapter("SELECT * from [dbo].[FingerPrints]", _con);
                     _adapt.Fill(dt);
-                    return Helper.Table.ToListModel<User>(dt);
+                    return Helper.Table.ToListModel<Fingerprint>(dt);
                     
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new List<User>();
+                    return new List<Fingerprint>();
 
                 }
                 finally
@@ -125,20 +127,19 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<bool> Update(User user)
+        public async Task<bool> Update(Fingerprint userR)
         {
             return await Task.Run<bool>(() =>
             {
                 try
                 {
 
-                    _cmd = new SqlCommand("UPDATE [dbo].[Users] set [FirstName]=@firstname, [LastName]=@lastname, [BirthDate]=@birthdate, [JobName]=@job WHERE Id=@id", _con);
+                    _cmd = new SqlCommand("UPDATE [dbo].[FingerPrints] set [FingerPrintImage]=@fingerprintImage, [UserId]=@userid WHERE Id=@id", _con);
                     _con.Open();
-                    _cmd.Parameters.AddWithValue("@Id", user.Id);
-                    _cmd.Parameters.AddWithValue("@firstname", user.FirstName);
-                    _cmd.Parameters.AddWithValue("@lastname", user.LastName);
-                    _cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
-                    _cmd.Parameters.AddWithValue("@job", user.JobName);
+
+                    _cmd.Parameters.AddWithValue("@id", userR.Id);                        
+                    _cmd.Parameters.AddWithValue("@fingerprintImage", userR.FingerPrintImage);
+                    _cmd.Parameters.AddWithValue("@userid", userR.UserId);
                     var result = _cmd.ExecuteNonQuery();
                     return true;
                 }
@@ -153,10 +154,9 @@ namespace FingerPrint.Data.Persistence
                 }
 
             });
-        }
+        }       
 
-        
 
     }
- 
+
 }

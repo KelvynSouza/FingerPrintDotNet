@@ -10,10 +10,10 @@ namespace FingerPrint.Data.Persistence
 {
     interface IUserRightsData
     {
-        public Task<DataTable> GetAll();
-        public Task<DataTable> Get(string id);
-        public Task Create(UserRights user);
-        public Task Update(UserRights user);
-        public Task Delete(string id);
+        public Task<ICollection<UserRights>> GetAll();
+        public Task<UserRights> Get(int id);
+        public Task<bool> Create(UserRights user);
+        public Task<bool> Update(UserRights user);
+        public Task<bool> Delete(int id);
     }
 }

@@ -10,30 +10,30 @@ using FingerPrint.Data.Model;
 
 namespace FingerPrint.Data.Persistence
 {
-    public class UserData : IUserData
+    public class UserRightsData : IUserRightsData
     {
         private SqlConnection _con;
         private SqlCommand _cmd;
         private SqlDataAdapter _adapt;
-        public UserData()
+        public UserRightsData()
         {
             _con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FingerPrintApp;Integrated Security=True;");
         }
 
-        public async Task<bool> Create(User user)
+        public async Task<bool> Create(UserRights userR)
         {
-            return await Task.Run<bool>(() =>
+           return await Task.Run<bool>(() =>
             {
                 try
                 {
 
-                    _cmd = new SqlCommand("INSERT INTO [dbo].[Users] ([FirstName], [LastName], [BirthDate], [JobName]) " +
-                                                                "VALUES (@firstname, @lastname, @birthdate, @job)", _con);
+                    _cmd = new SqlCommand("INSERT INTO [dbo].[UsersRight] ([Read], [Write], [Delete], [UserID]) " +
+                                                                "VALUES (@read, @write, @delete, @userid)", _con);
                     _con.Open();
-                    _cmd.Parameters.AddWithValue("@firstname", user.FirstName);
-                    _cmd.Parameters.AddWithValue("@lastname", user.LastName);
-                    _cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
-                    _cmd.Parameters.AddWithValue("@job", user.JobName);
+                    _cmd.Parameters.AddWithValue("@read", userR.Read);
+                    _cmd.Parameters.AddWithValue("@write", userR.Write);
+                    _cmd.Parameters.AddWithValue("@delete", userR.Delete);
+                    _cmd.Parameters.AddWithValue("@userid", userR.UserID);
                     var result = _cmd.ExecuteNonQuery();
                     return true;
                 }
@@ -55,7 +55,7 @@ namespace FingerPrint.Data.Persistence
             {
                 try
                 {
-                    _cmd = new SqlCommand("DELETE [dbo].[Users] WHERE [Id]=@id", _con);
+                    _cmd = new SqlCommand("DELETE [dbo].[UsersRight] WHERE [Id]=@id", _con);
                     _con.Open();
                     _cmd.Parameters.AddWithValue("@id", id);
                     _cmd.ExecuteNonQuery();
@@ -75,22 +75,22 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<User> Get(int id)
+        public async Task<UserRights> Get(int Userid)
         {
-            return await Task.Run<User>(() =>
+            return await Task.Run<UserRights>(() =>
             {
                 try
                 {
                     _con.Open();
                     DataTable dt = new DataTable();
-                    _adapt = new SqlDataAdapter(string.Format("SELECT * from [dbo].[Users] WHERE [Id]={0}",id), _con);  
+                    _adapt = new SqlDataAdapter(string.Format("SELECT * from [dbo].[UsersRight] WHERE [UserId]={0}", Userid), _con);  
                     _adapt.Fill(dt);
-                    return Helper.Table.ToModel<User>(dt);
+                    return Helper.Table.ToModel<UserRights>(dt);
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new User();
+                    return new UserRights();
                 }
                 finally
                 {
@@ -99,23 +99,23 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<ICollection<User>> GetAll()
+        public async Task<ICollection<UserRights>> GetAll()
         {
-            return await Task.Run<ICollection<User>>(() =>
+            return await Task.Run<ICollection<UserRights>>(() =>
             {
                 try
                 {
                     _con.Open();
                     DataTable dt = new DataTable();
-                    _adapt = new SqlDataAdapter("SELECT * from [dbo].[Users]", _con);
+                    _adapt = new SqlDataAdapter("SELECT * from [dbo].[UsersRight]", _con);
                     _adapt.Fill(dt);
-                    return Helper.Table.ToListModel<User>(dt);
+                    return Helper.Table.ToListModel<UserRights>(dt);
                     
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new List<User>();
+                    return new List<UserRights>();
 
                 }
                 finally
@@ -125,20 +125,21 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
-        public async Task<bool> Update(User user)
+        public async Task<bool> Update(UserRights userR)
         {
             return await Task.Run<bool>(() =>
             {
                 try
                 {
 
-                    _cmd = new SqlCommand("UPDATE [dbo].[Users] set [FirstName]=@firstname, [LastName]=@lastname, [BirthDate]=@birthdate, [JobName]=@job WHERE Id=@id", _con);
-                    _con.Open();
-                    _cmd.Parameters.AddWithValue("@Id", user.Id);
-                    _cmd.Parameters.AddWithValue("@firstname", user.FirstName);
-                    _cmd.Parameters.AddWithValue("@lastname", user.LastName);
-                    _cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
-                    _cmd.Parameters.AddWithValue("@job", user.JobName);
+                    _cmd = new SqlCommand("UPDATE [dbo].[UsersRight] set [Read]=@read, [Write]=@write, [Delete]=@delete, [UserID]=@userid WHERE Id=@id", _con);
+                    _con.Open();                   
+
+                    _cmd.Parameters.AddWithValue("@read", userR.Read);
+                    _cmd.Parameters.AddWithValue("@write", userR.Write);
+                    _cmd.Parameters.AddWithValue("@delete", userR.Delete);
+                    _cmd.Parameters.AddWithValue("@userid", userR.UserID);
+                    _cmd.Parameters.AddWithValue("@id", userR.Id);
                     var result = _cmd.ExecuteNonQuery();
                     return true;
                 }
