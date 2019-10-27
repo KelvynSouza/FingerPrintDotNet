@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Emgu.CV.WPF;
+using System.Text.RegularExpressions;
 
 namespace FingerPrint.Core
 {
@@ -30,7 +31,15 @@ namespace FingerPrint.Core
             InitializeComponent();
         }
 
-        private async void Processar(object sender, RoutedEventArgs e)
+        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
+
+
+
+        private async void btn_biometry_Click(object sender, RoutedEventArgs e)
         {
             FingerPrintData fingerDataBase = new FingerPrintData();
 
@@ -45,7 +54,7 @@ namespace FingerPrint.Core
             fingerprintData2.SetFingerPrintImage(System.Drawing.Image.FromFile(@"D:\Imagens\APS\Digital2.jpg"));
             await fingerDataBase.Create(fingerprintData2);
 
-            var resultComparison = await new ImageController().CompareDatabase(System.Drawing.Image.FromFile(@"D:\Imagens\APS\Digital2.jpg"));
+            var resultComparison = await new ImageController().CompareDatabase(System.Drawing.Image.FromFile(@"D:\Imagens\APS\Digital3.jpg"));
 
             var result = await fingerDataBase.Get(6);
             foreach (FingerprintModel fingerprintModel in result)
@@ -54,13 +63,36 @@ namespace FingerPrint.Core
             result = await fingerDataBase.Get(8);
             foreach (FingerprintModel fingerprintModel in result)
                 await fingerDataBase.Delete(fingerprintModel.Id);
-
-
         }
 
-        private void Reload_Click(object sender, RoutedEventArgs e)
+        private async void btn_login_Click(object sender, RoutedEventArgs e)
         {
-            image.Source = new BitmapImage(new Uri(@"D:\Imagens\APS\digital.png", UriKind.RelativeOrAbsolute));
+            UserData userData = new UserData();
+            
+            LoginController login = new LoginController();            
+            var result = await login.LogarWithPasswd(new LoginModel()
+            {
+                Id = Convert.ToInt32(tf_id.Text),
+                Password = tf_passwd.Text
+            });
+
+            if (result)
+                MessageBox.Show("Login realizado com sucesso.");
+            else
+                MessageBox.Show("Não foi possivel realizar o login");
+
+            
         }
+
+        private void tf_id_TextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
     }
 }

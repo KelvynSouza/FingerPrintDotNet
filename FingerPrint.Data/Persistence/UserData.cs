@@ -27,13 +27,14 @@ namespace FingerPrint.Data.Persistence
                 try
                 {
 
-                    _cmd = new SqlCommand("INSERT INTO [dbo].[Users] ([FirstName], [LastName], [BirthDate], [JobName]) " +
-                                                                "VALUES (@firstname, @lastname, @birthdate, @job)", _con);
-                    _con.Open();
+                    _cmd = new SqlCommand("INSERT INTO [dbo].[Users] ([FirstName], [LastName], [BirthDate], [JobName],[Password]) " +
+                                                                "VALUES (@firstname, @lastname, @birthdate, @job,@password)", _con);
+                    _con.Open();                    
                     _cmd.Parameters.AddWithValue("@firstname", user.FirstName);
                     _cmd.Parameters.AddWithValue("@lastname", user.LastName);
                     _cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
                     _cmd.Parameters.AddWithValue("@job", user.JobName);
+                    _cmd.Parameters.AddWithValue("@password", user.Password);
                     var result = _cmd.ExecuteNonQuery();
                     return true;
                 }
@@ -99,6 +100,29 @@ namespace FingerPrint.Data.Persistence
             });
         }
 
+        public async Task<UserModel> GetUser(int id,string password)
+        {
+            return await Task.Run<UserModel>(() =>
+            {
+                try
+                {
+                    _con.Open();
+                    DataTable dt = new DataTable();
+                    _adapt = new SqlDataAdapter(string.Format("SELECT * from [dbo].[Users] WHERE [Id]={0} and [Password]={1}", id,password), _con);
+                    _adapt.Fill(dt);
+                    return Helper.Table.ToModel<UserModel>(dt);
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            });
+        }
+
         public async Task<ICollection<UserModel>> GetAll()
         {
             return await Task.Run<ICollection<UserModel>>(() =>
@@ -132,13 +156,14 @@ namespace FingerPrint.Data.Persistence
                 try
                 {
 
-                    _cmd = new SqlCommand("UPDATE [dbo].[Users] set [FirstName]=@firstname, [LastName]=@lastname, [BirthDate]=@birthdate, [JobName]=@job WHERE Id=@id", _con);
+                    _cmd = new SqlCommand("UPDATE [dbo].[Users] set [FirstName]=@firstname, [LastName]=@lastname, [BirthDate]=@birthdate, [JobName]=@job, [Password]=@password WHERE Id=@id", _con);
                     _con.Open();
                     _cmd.Parameters.AddWithValue("@Id", user.Id);
                     _cmd.Parameters.AddWithValue("@firstname", user.FirstName);
                     _cmd.Parameters.AddWithValue("@lastname", user.LastName);
                     _cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
                     _cmd.Parameters.AddWithValue("@job", user.JobName);
+                    _cmd.Parameters.AddWithValue("@password", user.JobName);
                     var result = _cmd.ExecuteNonQuery();
                     return true;
                 }
