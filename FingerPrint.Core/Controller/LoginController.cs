@@ -11,11 +11,21 @@ namespace FingerPrint.Core.Controller
 {
     public class LoginController
     {
-
-        public async Task<bool> LogarWithPasswd(LoginModel login)
+        private LoginEvent _loginEvent;
+        public LoginController()
         {
-            LoginEvent loginEvent = new LoginEvent(new FingerPrintData(), new UserData());
-            return await loginEvent.Login(login);
+            _loginEvent = new LoginEvent(new FingerPrintData(), new UserData(), new UserRightsData());
+        }
+
+        public async Task<UserModel> LogarWithPasswd(LoginModel login)
+        {
+            
+            return await _loginEvent.Login(login);
+        }
+
+        public async Task<UserRightsModel> GetPermissions(int id)
+        {
+            return await _loginEvent.GetPermissions(id);
         }
 
     }

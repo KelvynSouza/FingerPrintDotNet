@@ -23,11 +23,11 @@
         <TextBlock x:Name="txt_id" Grid.Column="1" HorizontalAlignment="Left" Margin="63,65,0,0" TextWrapping="Wrap" Text="ID:"  VerticalAlignment="Top" Width="24" Height="16" RenderTransformOrigin="0.326,0.285"/>
         <TextBlock x:Name="txt_passwd" Grid.Column="1" HorizontalAlignment="Left" Margin="21,103,0,0" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top" Width="75" Height="16" Grid.ColumnSpan="2"/>
         <TextBox x:Name="tf_id" Grid.Column="2" HorizontalAlignment="Left" PreviewTextInput="NumberValidationTextBox" Height="23" Margin="1,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" TextChanged="tf_id_TextChanged"/>
-        <TextBox x:Name="tf_passwd" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="1,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
         <TextBlock x:Name="txt_title" Grid.Column="1" HorizontalAlignment="Left" Margin="65,14,0,0" TextWrapping="Wrap" Text="Controle de Usuários" VerticalAlignment="Top" Width="165" Height="16" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>
         <Button x:Name="btn_login" Content="Login" Grid.Column="1" HorizontalAlignment="Left" Margin="19,154,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="btn_login_Click"/>
         <Button x:Name="btn_biometry" Content="Biometry" Grid.Column="2" HorizontalAlignment="Left" Margin="55,154,0,0" VerticalAlignment="Top" Width="96" Click="btn_biometry_Click"/>
         <TextBlock x:Name="aux" Grid.Column="2" HorizontalAlignment="Left" Margin="20,163,0,0" TextWrapping="Wrap" Text="or" VerticalAlignment="Top" Width="20" Height="16" FontWeight="Bold"/>
+        <PasswordBox x:Name="tf_passwd" Grid.Column="2" HorizontalAlignment="Left" Margin="0,94,0,0" VerticalAlignment="Top" Width="142"/>
 
     </Grid>
 

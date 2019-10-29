@@ -12,29 +12,48 @@ namespace FingerPrint.Core.Events
     {
         private IFingerPrintData _fingerPrintData;
         private IUserData _userData;
-        public LoginEvent(IFingerPrintData fingerPrintData, IUserData userData)
+        private IUserRightsData _userRights;
+        public LoginEvent(IFingerPrintData fingerPrintData, IUserData userData, IUserRightsData userRights)
         {
             _fingerPrintData = fingerPrintData;
             _userData = userData;
+            _userRights = userRights;
         }
 
-        public async Task<bool> Login(LoginModel login)
+        public async Task<UserModel> Login(LoginModel login)
         {
-            return await Task.Run<bool>(async () =>
+            return await Task.Run<UserModel>(async () =>
             {
                 try
                 {
                     var user = await _userData.GetUser(login.Id, login.Password);
-                    if (user is null)
-                        return false;
-                    else
-                        return true;
+
+                    return user;
                 }
-                catch(Exception ex)
+                catch(Exception)
                 {
-                    return false;
+                    return null;
                 }
             });
         }
+
+        public async Task<UserRightsModel> GetPermissions(int id)
+        {
+            return await Task.Run<UserRightsModel>(async () =>
+            {
+                try
+                {
+                    var user = await _userRights.Get(id);
+
+                    return user;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            });
+        }
+
+
     }
 }

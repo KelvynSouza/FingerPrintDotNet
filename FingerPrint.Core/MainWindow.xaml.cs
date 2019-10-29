@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Emgu.CV.WPF;
 using System.Text.RegularExpressions;
+using FingerPrint.View;
 
 namespace FingerPrint.Core
 {
@@ -67,19 +68,22 @@ namespace FingerPrint.Core
 
         private async void btn_login_Click(object sender, RoutedEventArgs e)
         {
-            UserData userData = new UserData();
-            
-            LoginController login = new LoginController();            
-            var result = await login.LogarWithPasswd(new LoginModel()
-            {
-                Id = Convert.ToInt32(tf_id.Text),
-                Password = tf_passwd.Text
-            });
+            new MainSystem().Show();
+            this.Close();
 
-            if (result)
-                MessageBox.Show("Login realizado com sucesso.");
-            else
-                MessageBox.Show("Não foi possivel realizar o login");
+            //UserData userData = new UserData();
+            
+            //LoginController login = new LoginController();            
+            //var result = await login.LogarWithPasswd(new LoginModel()
+            //{
+            //    Id = Convert.ToInt32(tf_id.Text),
+            //    Password = tf_passwd.Text
+            //});
+
+            //if (result)
+            //    MessageBox.Show("Login realizado com sucesso.");
+            //else
+            //    MessageBox.Show("Não foi possivel realizar o login");
 
             
         }
