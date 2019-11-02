@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FingerPrint.View"
-        mc:Ignorable="d" Height="450" Width="800">
-    <Grid>
-        <Grid x:Name="gd_Permissions" HorizontalAlignment="Left" Height="102" Margin="10,302,0,0" VerticalAlignment="Top" Width="167">
+        mc:Ignorable="d" Height="450" Width="931.42" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid HorizontalAlignment="Left" Width="921">
+        <Grid x:Name="gd_Permissions" HorizontalAlignment="Left" Height="102" Margin="10,302,0,0" VerticalAlignment="Top" Width="106">
             <Rectangle x:Name="cb_read" Fill="White" HorizontalAlignment="Left" Height="26" Margin="0,9,0,0" Stroke="Black" VerticalAlignment="Top" Width="29" RadiusX="90" RadiusY="90"/>
             <Rectangle x:Name="cb_write" Fill="White" HorizontalAlignment="Left" Height="26" Margin="0,40,0,0" Stroke="Black" VerticalAlignment="Top" Width="29" RadiusX="90" RadiusY="90"/>
             <Rectangle x:Name="cb_delete" Fill="White" HorizontalAlignment="Left" Height="26" Margin="0,71,0,0" Stroke="Black" VerticalAlignment="Top" Width="29" RadiusX="90" RadiusY="90"/>
@@ -14,16 +14,18 @@
             <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="34,42,0,0" TextWrapping="Wrap" Text="Write" VerticalAlignment="Top" FontSize="22" FontFamily="Georgia"/>
             <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="34,73,0,0" TextWrapping="Wrap" Text="Delete" VerticalAlignment="Top" FontSize="22" FontFamily="Georgia"/>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="100" Margin="903,342,-211,-23" VerticalAlignment="Top" Width="100"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="399" Margin="177,10,0,0" VerticalAlignment="Top" Width="605"/>
-        <Expander x:Name="expander" Header="Usuário" HorizontalAlignment="Left" Height="191" Margin="0,66,0,0" VerticalAlignment="Top" Width="161" FontWeight="Bold" IsExpanded="True">
-            <Grid HorizontalAlignment="Left" Height="219" Width="151" Margin="10,0,0,0">
-                <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="FirstName:" VerticalAlignment="Top" Margin="0,10,0,0"/>
-                <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="LastName:" VerticalAlignment="Top" Margin="0,35,0,0"/>
-                <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Job:" VerticalAlignment="Top" Margin="0,55,0,0"/>
-                <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="BirthDate:" VerticalAlignment="Top" Margin="0,75,0,0"/>
+        <Expander x:Name="expander" Header="Usuário" HorizontalAlignment="Left" Height="191" Margin="10,10,0,0" VerticalAlignment="Top" Width="155" FontWeight="Bold" IsExpanded="True" FontFamily="Roboto">
+            <Grid HorizontalAlignment="Left" Height="136" Width="145" Margin="10,0,0,0">
+                <TextBlock x:Name="tb_firstName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,15,0,0" Text="FirstName: "/>
+                <TextBlock x:Name="tb_lastName" HorizontalAlignment="Left" TextWrapping="Wrap" Text="LastName: " VerticalAlignment="Top" Margin="0,35,0,0"/>
+                <TextBlock x:Name="tb_job" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Job: " VerticalAlignment="Top" Margin="34,55,0,0"/>
+                <TextBlock x:Name="tb_birthDate" HorizontalAlignment="Left" TextWrapping="Wrap" Text="BirthDate: " VerticalAlignment="Top" Margin="0,75,0,0"/>
             </Grid>
 
         </Expander>
+
+        <DataGrid x:Name="dataGrid" Height="399" VerticalAlignment="Top" Width="663" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" MaxWidth="663" HorizontalContentAlignment="Stretch" Margin="170,10,71,0" IsSynchronizedWithCurrentItem="True"/>
+
+        <Button x:Name="btn_addUser" Content="+" Margin="844,10,23,0" VerticalAlignment="Top" FontSize="22" Height="46" Background="White" Foreground="#FF673AB7" Click="btn_addUser_Click"/>
     </Grid>
 </Window>

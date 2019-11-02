@@ -209,9 +209,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\DataController.cs" />
     <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Events\DataEvent.cs" />
     <Compile Include="Events\LoginEvent.cs" />
     <Compile Include="Events\ProcessImageEvent.cs" />
+    <Compile Include="View\AddUser.xaml.cs">
+      <DependentUpon>AddUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainSystem.xaml.cs">
       <DependentUpon>MainSystem.xaml</DependentUpon>
     </Compile>
@@ -229,6 +234,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\AddUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainSystem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -68,24 +68,27 @@ namespace FingerPrint.Core
 
         private async void btn_login_Click(object sender, RoutedEventArgs e)
         {
-            new MainSystem().Show();
-            this.Close();
-
-            //UserData userData = new UserData();
             
-            //LoginController login = new LoginController();            
-            //var result = await login.LogarWithPasswd(new LoginModel()
-            //{
-            //    Id = Convert.ToInt32(tf_id.Text),
-            //    Password = tf_passwd.Text
-            //});
-
-            //if (result)
-            //    MessageBox.Show("Login realizado com sucesso.");
-            //else
-            //    MessageBox.Show("Não foi possivel realizar o login");
-
             
+
+            UserData userData = new UserData();
+
+            LoginController login = new LoginController();
+            var result = await login.LogarWithPasswd(new LoginModel()
+            {
+                Id = 1009,//Convert.ToInt32(tf_id.Text),
+                Password = "admin"//tf_passwd.Password
+            });
+
+            if (result is null)
+                MessageBox.Show("Não foi possivel realizar o login");
+            else
+            {
+                MainSystem newSystem = new MainSystem(result);
+                newSystem.Show();
+                await newSystem.InitializeSystem();
+                this.Close();
+            }
         }
 
         private void tf_id_TextChanged(object sender, TextChangedEventArgs e)

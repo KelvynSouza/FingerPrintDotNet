@@ -1,4 +1,5 @@
-﻿using FingerPrint.Core.Controller;
+﻿using FingerPrint.Controller;
+using FingerPrint.Core.Controller;
 using FingerPrint.Core.Events;
 using FingerPrint.Data.Model;
 using FingerPrint.Data.Persistence;
@@ -25,28 +26,55 @@ namespace FingerPrint.View
     {
 
         private UserModel _user;
-        private LoginController _loginController;
+        private UserRightsModel _permissions;
 
-        public MainSystem(UserModel user = null)
+        private LoginController _loginController;
+        private DataController _dataController;
+
+        public MainSystem(UserModel user)
         {
             _user = user;
             _loginController = new LoginController();
+            _dataController = new DataController();
+
             InitializeComponent();
-            InitializeUser();
+
         }
 
-        public async Task InitializeUser()
+        public async Task InitializeSystem()
         {
+            GetUserInfo();
             await CheckPermissions();
+            await GetData();
         }
 
-        public async Task CheckPermissions()
+        private async Task CheckPermissions()
         {
-            var permissions = await _loginController.GetPermissions(_user.Id);
-            cb_read.Fill = permissions.Read == true ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.White);
-            cb_write.Fill = permissions.Write == true ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.White);
-            cb_delete.Fill = permissions.Delete == true ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.White);
+            _permissions = await _loginController.GetPermissions(_user.Id);
+            cb_read.Fill = _permissions.Read == true ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.White);
+            cb_write.Fill = _permissions.Write == true ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.White);
+            cb_delete.Fill = _permissions.Delete == true ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.White);
 
+        }
+        private async Task GetData()
+        {
+            dataGrid.ItemsSource = await _dataController.GetAllUsers();
+        }
+
+        private void GetUserInfo()
+        {
+            tb_firstName.Text += _user.FirstName;
+            tb_lastName.Text += _user.LastName;
+            tb_job.Text += _user.JobName;
+            tb_birthDate.Text += _user.BirthDate.ToString("dd/MM/yyyy");
+
+
+        }
+
+        private void btn_addUser_Click(object sender, RoutedEventArgs e)
+        {
+            new AddUser(this).Show();
+            this.Hide();
         }
     }
 }

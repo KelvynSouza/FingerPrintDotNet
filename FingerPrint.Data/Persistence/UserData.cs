@@ -108,7 +108,7 @@ namespace FingerPrint.Data.Persistence
                 {
                     _con.Open();
                     DataTable dt = new DataTable();
-                    _adapt = new SqlDataAdapter(string.Format("SELECT * from [dbo].[Users] WHERE [Id]={0} and [Password]={1}", id,password), _con);
+                    _adapt = new SqlDataAdapter(string.Format("SELECT * from [dbo].[Users] WHERE [Id]={0} and [Password]='{1}'", id,password), _con);
                     _adapt.Fill(dt);
                     return Helper.Table.ToModel<UserModel>(dt);
                 }
