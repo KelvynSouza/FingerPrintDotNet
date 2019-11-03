@@ -3,6 +3,7 @@ using FingerPrint.Core.Controller;
 using FingerPrint.Data.Model;
 using FingerPrint.Data.Persistence;
 using FingerPrint.View;
+using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,7 +36,7 @@ namespace FingerPrint.Core
             OpenFileDialog dlg = new OpenFileDialog
             {
                 InitialDirectory = "c:\\Pictures",
-                Filter = "Image files (*.jpg)|*.jpg|All Files (*.*)|*.*",
+                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png",
                 RestoreDirectory = true
 
             };
@@ -43,24 +44,30 @@ namespace FingerPrint.Core
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string selectedFileName = dlg.FileName;
-                 SelectedFingerPrint = System.Drawing.Image.FromFile(selectedFileName);
+                SelectedFingerPrint = System.Drawing.Image.FromFile(selectedFileName);
 
 
-            }
 
-            FingerPrintData fingerDataBase = new FingerPrintData();
-            var resultComparison = await new ImageController().CompareDatabase(SelectedFingerPrint);
 
-            if (resultComparison != 0)
-            {
-                var user = await new DataController().GetUserInfo(resultComparison);
-                MainSystem newSystem = new MainSystem(user.User);
+                FingerPrintData fingerDataBase = new FingerPrintData();
+                var resultComparison = await new ImageController().CompareDatabase(SelectedFingerPrint);
+
+                if (resultComparison != 0)
+                {
+                    var user = await new DataController().GetUserInfo(resultComparison);
+                    MainSystem newSystem = new MainSystem(user.User);
+                    newSystem.Show();
+                    this.Close();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Não foi possivel realizar o login");
+                }
             }
             else
             {
                 System.Windows.MessageBox.Show("Não foi possivel realizar o login");
             }
-
 
 
         }
@@ -75,8 +82,8 @@ namespace FingerPrint.Core
 
             var result = await login.LogarWithPasswd(new LoginModel()
             {
-                Id = 1009,//Convert.ToInt32(tf_id.Text),
-                Password = "Desenvolvedor"//tf_passwd.Password
+                Id = Convert.ToInt32(tf_id.Text),
+                Password = tf_passwd.Password
             });
 
             if (result is null)
@@ -85,7 +92,6 @@ namespace FingerPrint.Core
             {
                 MainSystem newSystem = new MainSystem(result);
                 newSystem.Show();
-                await newSystem.InitializeSystem();
                 this.Close();
             }
         }

@@ -35,13 +35,13 @@ namespace FingerPrint.Data.Persistence
                     _cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
                     _cmd.Parameters.AddWithValue("@job", user.JobName);
                     _cmd.Parameters.AddWithValue("@password", user.Password);
-                    var result = (int)_cmd.ExecuteScalar();
-                    return result;
+                    var result = _cmd.ExecuteScalar();
+                    return Convert.ToInt32(result);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return 0;
+                    throw ex;
                 }
                 finally
                 {
@@ -139,7 +139,7 @@ namespace FingerPrint.Data.Persistence
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return new List<UserModel>();
+                    throw ex;
 
                 }
                 finally
@@ -163,7 +163,7 @@ namespace FingerPrint.Data.Persistence
                     _cmd.Parameters.AddWithValue("@lastname", user.LastName);
                     _cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
                     _cmd.Parameters.AddWithValue("@job", user.JobName);
-                    _cmd.Parameters.AddWithValue("@password", user.JobName);
+                    _cmd.Parameters.AddWithValue("@password", user.Password);
                     var result = _cmd.ExecuteNonQuery();
                     return true;
                 }

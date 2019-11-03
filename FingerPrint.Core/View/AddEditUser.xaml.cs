@@ -32,7 +32,7 @@ namespace FingerPrint.View
             _dataController = new DataController();
             _UserfingerprintsImage = new List<FingerprintModel>();
 
-
+            
             _controlPanel = controlPanel;
 
             if (userEdit != null)
@@ -44,6 +44,8 @@ namespace FingerPrint.View
 
         }
 
+
+
         private async void bt_salvar(object sender, RoutedEventArgs e)
         {
             if (_userEdit is null)
@@ -51,6 +53,7 @@ namespace FingerPrint.View
             else
                 await _dataController.EditUser(EditDataToModel());
 
+            
             _controlPanel.Show();
             this.Close();
         }
@@ -62,7 +65,7 @@ namespace FingerPrint.View
             OpenFileDialog dlg = new OpenFileDialog
             {
                 InitialDirectory = "c:\\Pictures",
-                Filter = "Image files (*.jpg)|*.jpg|All Files (*.*)|*.*",
+                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png",
                 RestoreDirectory = true
 
             };
@@ -172,6 +175,7 @@ namespace FingerPrint.View
 
                 UserRights = new UserRightsModel()
                 {
+                    UserID = _userEdit.User.Id,
                     Read = (bool)cb_read.IsChecked,
                     Write = (bool)cb_write.IsChecked,
                     Delete = (bool)cb_delete.IsChecked
@@ -188,7 +192,7 @@ namespace FingerPrint.View
                 {
                     FirstName = tb_fname.Text,
                     LastName = tb_lname.Text,
-                    BirthDate = Convert.ToDateTime(tb_bdate.Text),
+                    BirthDate = DateTime.Parse(tb_bdate.Text),
                     JobName = tb_job.Text,
                     Password = tb_password.Text
                 },
@@ -206,8 +210,10 @@ namespace FingerPrint.View
 
         private void bt_back_Click(object sender, RoutedEventArgs e)
         {
-            _controlPanel.Show();
+            
+            _controlPanel.Show();            
             this.Close();
+            
         }
     }
 }

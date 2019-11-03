@@ -66,7 +66,7 @@ namespace FingerPrint.Events
                 try
                 {
                     var id = await _userData.Create(user.User);
-                    user.UserRights.Id = id;
+                    user.UserRights.UserID = id;
                     await _userRights.Create(user.UserRights);
                     foreach (var fingerprint in user.UserFingerprints)
                     {

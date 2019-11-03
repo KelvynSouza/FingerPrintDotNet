@@ -41,7 +41,7 @@ namespace FingerPrint.Data.Persistence
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return false;
+                    throw ex;
                 }
                 finally
                 {

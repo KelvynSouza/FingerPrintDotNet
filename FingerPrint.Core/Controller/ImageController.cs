@@ -20,7 +20,7 @@ namespace FingerPrint.Core.Controller
         {
             ProcessImageEvent processImage = new ProcessImageEvent(new FingerPrintData(), new UserData());
             var user = await processImage.CompareImages(fingerPrint);
-            int id = (user is null) ?  0 :  user.Id;
+            int id = (user is null) ?  0 :  user.UserId;
             return id;
 
             

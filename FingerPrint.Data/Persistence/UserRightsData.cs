@@ -40,7 +40,7 @@ namespace FingerPrint.Data.Persistence
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return false;
+                    throw ex;
                 }
                 finally
                 {
@@ -132,21 +132,20 @@ namespace FingerPrint.Data.Persistence
                 try
                 {
 
-                    _cmd = new SqlCommand("UPDATE [dbo].[UsersRight] set [Read]=@read, [Write]=@write, [Delete]=@delete, [UserID]=@userid WHERE Id=@id", _con);
+                    _cmd = new SqlCommand("UPDATE [dbo].[UsersRight] set [Read]=@read, [Write]=@write, [Delete]=@delete WHERE [UserID]=@userid", _con);
                     _con.Open();                   
 
                     _cmd.Parameters.AddWithValue("@read", userR.Read);
                     _cmd.Parameters.AddWithValue("@write", userR.Write);
                     _cmd.Parameters.AddWithValue("@delete", userR.Delete);
                     _cmd.Parameters.AddWithValue("@userid", userR.UserID);
-                    _cmd.Parameters.AddWithValue("@id", userR.Id);
                     var result = _cmd.ExecuteNonQuery();
                     return true;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return false;
+                    throw ex;
                 }
                 finally
                 {

@@ -1,4 +1,5 @@
 ﻿using FingerPrint.Controller;
+using FingerPrint.Core;
 using FingerPrint.Core.Controller;
 using FingerPrint.Core.Events;
 using FingerPrint.Data.Model;
@@ -44,9 +45,9 @@ namespace FingerPrint.View
 
         public async Task InitializeSystem()
         {
+            await GetData();
             GetUserInfo();
             await CheckPermissions();
-            await GetData();
         }
 
         private async Task CheckPermissions()
@@ -59,20 +60,20 @@ namespace FingerPrint.View
         }
         private async Task GetData()
         {
-            dataGrid.ItemsSource = await _dataController.GetAllUsers();
-                      
-            
+            dataGrid.ItemsSource = await new DataController().GetAllUsers();
+
+
         }
 
-       
+
 
 
         private void GetUserInfo()
         {
-            tb_firstName.Text += _user.FirstName;
-            tb_lastName.Text += _user.LastName;
-            tb_job.Text += _user.JobName;
-            tb_birthDate.Text += _user.BirthDate.ToString("dd/MM/yyyy");
+            tb_firstName.Text = "FirstName: " + _user.FirstName;
+            tb_lastName.Text = "LastName: " +_user.LastName;
+            tb_job.Text ="Job: "+ _user.JobName;
+            tb_birthDate.Text = "BirthDate: "+ _user.BirthDate.ToString("dd/MM/yyyy");
 
 
         }
@@ -86,9 +87,20 @@ namespace FingerPrint.View
         private async void dataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
             var id = (e.Row.Item as UserModel).Id;
-            var UserEditIndo = await _dataController.GetUserInfo(id);
-            new AddEditUser(this,UserEditIndo).Show();
+            var UserEditIndo = await new DataController().GetUserInfo(id);
+            new AddEditUser(this, UserEditIndo).Show();
             this.Hide();
+        }
+
+        private async void Window_Activated(object sender, EventArgs e)
+        {
+            await InitializeSystem();
+        }
+
+        private void btn_logoff_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            this.Close();
         }
     }
 }

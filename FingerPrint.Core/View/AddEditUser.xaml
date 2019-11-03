@@ -24,7 +24,7 @@
         <TextBlock x:Name="txt_job" HorizontalAlignment="Left" Margin="40,125,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="66" Height="16" RenderTransformOrigin="0.326,0.285" Text="Job:"/>
         <TextBox x:Name="tb_job" HorizontalAlignment="Left" Height="23" Margin="106,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="txt_bdate" HorizontalAlignment="Left" Margin="40,150,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="66" Height="16" RenderTransformOrigin="0.326,0.285" Text="Birth Date:"/>
-        <TextBox x:Name="tb_bdate" Text=""  HorizontalAlignment="Left" Height="23" Margin="106,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="tb_bdate" Text=""  HorizontalAlignment="Left" Height="23" Margin="106,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="72" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="txt_password" HorizontalAlignment="Left" Margin="40,175,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="66" Height="16" RenderTransformOrigin="0.326,0.285" Text="Password:"/>
         <TextBox x:Name="tb_password" HorizontalAlignment="Left" Height="23" Margin="106,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="txt_rightsTitle" HorizontalAlignment="Left" Margin="40,203,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="66" Height="16" RenderTransformOrigin="0.326,0.285" Text="Rights" FontWeight="Bold"/>
