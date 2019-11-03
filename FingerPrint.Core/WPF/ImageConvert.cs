@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -114,6 +115,43 @@ namespace Emgu.CV.WPF
             bmp.UnlockBits(bmpData);
 
             return cvImage.Mat;
+        }
+
+        public static BitmapImage ImageFromBuffer(byte[] bytes)
+        {
+            MemoryStream stream = new MemoryStream(bytes);
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.StreamSource = stream;
+            image.EndInit();
+            return image;
+        }
+
+        //public static byte[] BufferFromImage(BitmapImage imageSource)
+        //{
+        //    Stream stream = imageSource.StreamSource;
+        //    byte[] buffer = null;
+        //    if (stream != null && stream.Length > 0)
+        //    {
+        //        using (BinaryReader br = new BinaryReader(stream))
+        //        {
+        //            buffer = br.ReadBytes((Int32)stream.Length);
+        //        }
+        //    }
+
+        //    return buffer;
+        //}
+
+        public static byte[] ImageToByte(BitmapImage imageSource)
+        {
+            var encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(imageSource));
+
+            using (var ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                return ms.ToArray();
+            }
         }
     }
 }

@@ -1,24 +1,13 @@
-﻿using FingerPrint.Core.Controller;
+﻿using FingerPrint.Controller;
+using FingerPrint.Core.Controller;
 using FingerPrint.Data.Model;
 using FingerPrint.Data.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FingerPrint.View;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Drawing;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Emgu.CV.WPF;
-using System.Text.RegularExpressions;
-using FingerPrint.View;
 
 namespace FingerPrint.Core
 {
@@ -42,46 +31,56 @@ namespace FingerPrint.Core
 
         private async void btn_biometry_Click(object sender, RoutedEventArgs e)
         {
+            System.Drawing.Image SelectedFingerPrint = null;
+            OpenFileDialog dlg = new OpenFileDialog
+            {
+                InitialDirectory = "c:\\Pictures",
+                Filter = "Image files (*.jpg)|*.jpg|All Files (*.*)|*.*",
+                RestoreDirectory = true
+
+            };
+
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string selectedFileName = dlg.FileName;
+                 SelectedFingerPrint = System.Drawing.Image.FromFile(selectedFileName);
+
+
+            }
+
             FingerPrintData fingerDataBase = new FingerPrintData();
+            var resultComparison = await new ImageController().CompareDatabase(SelectedFingerPrint);
+
+            if (resultComparison != 0)
+            {
+                var user = await new DataController().GetUserInfo(resultComparison);
+                MainSystem newSystem = new MainSystem(user.User);
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Não foi possivel realizar o login");
+            }
 
 
-            FingerprintModel fingerprintData = new FingerprintModel();
-            fingerprintData.UserId = 6;
-            fingerprintData.SetFingerPrintImage(System.Drawing.Image.FromFile(@"D:\Imagens\APS\digital.png"));
-            await fingerDataBase.Create(fingerprintData);
 
-            FingerprintModel fingerprintData2 = new FingerprintModel();
-            fingerprintData2.UserId = 8;
-            fingerprintData2.SetFingerPrintImage(System.Drawing.Image.FromFile(@"D:\Imagens\APS\Digital2.jpg"));
-            await fingerDataBase.Create(fingerprintData2);
-
-            var resultComparison = await new ImageController().CompareDatabase(System.Drawing.Image.FromFile(@"D:\Imagens\APS\Digital3.jpg"));
-
-            var result = await fingerDataBase.Get(6);
-            foreach (FingerprintModel fingerprintModel in result)
-                await fingerDataBase.Delete(fingerprintModel.Id);
-
-            result = await fingerDataBase.Get(8);
-            foreach (FingerprintModel fingerprintModel in result)
-                await fingerDataBase.Delete(fingerprintModel.Id);
         }
 
         private async void btn_login_Click(object sender, RoutedEventArgs e)
         {
-            
-            
 
-            UserData userData = new UserData();
 
+
+            
             LoginController login = new LoginController();
+
             var result = await login.LogarWithPasswd(new LoginModel()
             {
                 Id = 1009,//Convert.ToInt32(tf_id.Text),
-                Password = "admin"//tf_passwd.Password
+                Password = "Desenvolvedor"//tf_passwd.Password
             });
 
             if (result is null)
-                MessageBox.Show("Não foi possivel realizar o login");
+                System.Windows.MessageBox.Show("Não foi possivel realizar o login");
             else
             {
                 MainSystem newSystem = new MainSystem(result);

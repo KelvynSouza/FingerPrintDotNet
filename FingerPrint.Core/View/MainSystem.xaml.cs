@@ -4,6 +4,7 @@ using FingerPrint.Core.Events;
 using FingerPrint.Data.Model;
 using FingerPrint.Data.Persistence;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -59,7 +60,12 @@ namespace FingerPrint.View
         private async Task GetData()
         {
             dataGrid.ItemsSource = await _dataController.GetAllUsers();
+                      
+            
         }
+
+       
+
 
         private void GetUserInfo()
         {
@@ -73,7 +79,15 @@ namespace FingerPrint.View
 
         private void btn_addUser_Click(object sender, RoutedEventArgs e)
         {
-            new AddUser(this).Show();
+            new AddEditUser(this).Show();
+            this.Hide();
+        }
+
+        private async void dataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            var id = (e.Row.Item as UserModel).Id;
+            var UserEditIndo = await _dataController.GetUserInfo(id);
+            new AddEditUser(this,UserEditIndo).Show();
             this.Hide();
         }
     }

@@ -13,7 +13,7 @@ namespace FingerPrint.Data.Persistence
         public Task<ICollection<UserModel>> GetAll();
         public Task<UserModel> Get(int id);
         public Task<UserModel> GetUser(int id,string password);
-        public Task<bool> Create(UserModel user);
+        public Task<int> Create(UserModel user);
         public Task<bool> Update(UserModel user);
         public Task<bool> Delete(int id);
     }

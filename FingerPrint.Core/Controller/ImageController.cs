@@ -16,11 +16,12 @@ namespace FingerPrint.Core.Controller
     {
                
 
-        public async Task<Data.Model.FingerprintModel> CompareDatabase(Image fingerPrint)
+        public async Task<int> CompareDatabase(Image fingerPrint)
         {
             ProcessImageEvent processImage = new ProcessImageEvent(new FingerPrintData(), new UserData());
-                        
-            return await processImage.CompareImages(fingerPrint);
+            var user = await processImage.CompareImages(fingerPrint);
+            int id = (user is null) ?  0 :  user.Id;
+            return id;
 
             
         }

@@ -20,28 +20,28 @@ namespace FingerPrint.Data.Persistence
             _con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FingerPrintApp;Integrated Security=True;");
         }
 
-        public async Task<bool> Create(UserModel user)
+        public async Task<int> Create(UserModel user)
         {
-            return await Task.Run<bool>(() =>
+            return await Task.Run<int>(() =>
             {
                 try
                 {
 
                     _cmd = new SqlCommand("INSERT INTO [dbo].[Users] ([FirstName], [LastName], [BirthDate], [JobName],[Password]) " +
-                                                                "VALUES (@firstname, @lastname, @birthdate, @job,@password)", _con);
+                                                                "VALUES (@firstname, @lastname, @birthdate, @job,@password); SELECT SCOPE_IDENTITY();", _con);
                     _con.Open();                    
                     _cmd.Parameters.AddWithValue("@firstname", user.FirstName);
                     _cmd.Parameters.AddWithValue("@lastname", user.LastName);
                     _cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
                     _cmd.Parameters.AddWithValue("@job", user.JobName);
                     _cmd.Parameters.AddWithValue("@password", user.Password);
-                    var result = _cmd.ExecuteNonQuery();
-                    return true;
+                    var result = (int)_cmd.ExecuteScalar();
+                    return result;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro : " + ex.Message);
-                    return false;
+                    return 0;
                 }
                 finally
                 {

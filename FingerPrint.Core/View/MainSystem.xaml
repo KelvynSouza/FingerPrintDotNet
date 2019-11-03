@@ -24,7 +24,7 @@
 
         </Expander>
 
-        <DataGrid x:Name="dataGrid" Height="399" VerticalAlignment="Top" Width="663" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" MaxWidth="663" HorizontalContentAlignment="Stretch" Margin="170,10,71,0" IsSynchronizedWithCurrentItem="True"/>
+        <DataGrid x:Name="dataGrid" Height="399" VerticalAlignment="Top" Width="663" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" MaxWidth="663" HorizontalContentAlignment="Stretch" Margin="170,10,71,0" IsSynchronizedWithCurrentItem="True" BeginningEdit="dataGrid_BeginningEdit"/>
 
         <Button x:Name="btn_addUser" Content="+" Margin="844,10,23,0" VerticalAlignment="Top" FontSize="22" Height="46" Background="White" Foreground="#FF673AB7" Click="btn_addUser_Click"/>
     </Grid>
