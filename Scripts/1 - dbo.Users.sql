@@ -1,3 +1,5 @@
+create database FingerPrintApp
+go
 USE [FingerPrintApp]
 GO
 
