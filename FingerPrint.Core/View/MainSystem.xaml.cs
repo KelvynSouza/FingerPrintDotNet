@@ -40,7 +40,7 @@ namespace FingerPrint.View
             _dataController = new DataController();
 
             InitializeComponent();
-
+            
         }
 
         public async Task InitializeSystem()
@@ -92,15 +92,22 @@ namespace FingerPrint.View
             this.Hide();
         }
 
-        private async void Window_Activated(object sender, EventArgs e)
-        {
-            await InitializeSystem();
-        }
+        //Alterar, executando sempre que tela maximiza
+        
 
         private void btn_logoff_Click(object sender, RoutedEventArgs e)
         {
             new MainWindow().Show();
             this.Close();
+        }
+
+        
+        private async void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if(this.IsVisible == true)
+            {
+                await InitializeSystem();
+            }
         }
     }
 }

@@ -20,3 +20,9 @@ CREATE TABLE [dbo].[UsersRight] (
 );
 
 
+
+SET IDENTITY_INSERT [dbo].[UsersRight] ON
+INSERT INTO [dbo].[UsersRight] ([Id], [Read], [Write], [Delete], [UserID]) VALUES (1, 1, 1, 1, 1009)
+INSERT INTO [dbo].[UsersRight] ([Id], [Read], [Write], [Delete], [UserID]) VALUES (2, 1, 1, 0, 2015)
+SET IDENTITY_INSERT [dbo].[UsersRight] OFF
+

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FingerPrint.View"
-        mc:Ignorable="d" Height="450" Width="851.38" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Activated="Window_Activated">
+        mc:Ignorable="d" Height="450" Width="851.38" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"  IsVisibleChanged="Window_IsVisibleChanged">
     <Grid HorizontalAlignment="Left" Width="841">
         <Grid x:Name="gd_Permissions" HorizontalAlignment="Left" Height="102" Margin="10,302,0,0" VerticalAlignment="Top" Width="106">
             <Rectangle x:Name="cb_read" Fill="White" HorizontalAlignment="Left" Height="26" Margin="0,9,0,0" Stroke="Black" VerticalAlignment="Top" Width="29" RadiusX="90" RadiusY="90"/>
@@ -27,6 +27,6 @@
         <DataGrid x:Name="dataGrid" Height="399" VerticalAlignment="Top" Width="663" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" MaxWidth="663" HorizontalContentAlignment="Stretch" Margin="154,10,0,0" IsSynchronizedWithCurrentItem="True" BeginningEdit="dataGrid_BeginningEdit" HorizontalAlignment="Left"/>
 
         <Button x:Name="btn_addUser" Content="+" Margin="64,14,0,0" VerticalAlignment="Top" FontSize="22" Height="46" Background="White" Foreground="#FF673AB7" Click="btn_addUser_Click" HorizontalAlignment="Left" Width="54"/>
-        <Button x:Name="btn_logoff" Content="Off" Margin="12,14,0,0" VerticalAlignment="Top" FontSize="12" Height="46" Background="White" Foreground="#FF673AB7" Click="btn_logoff_Click" HorizontalAlignment="Left"/>
+        <Button x:Name="btn_logoff" Content="Off" Margin="12,14,0,0" VerticalAlignment="Top" FontSize="12" Height="46" Background="White" Foreground="#FF673AB7" Click="btn_logoff_Click" HorizontalAlignment="Left" Width="52"/>
     </Grid>
 </Window>
