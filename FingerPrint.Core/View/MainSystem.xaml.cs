@@ -40,7 +40,7 @@ namespace FingerPrint.View
             _dataController = new DataController();
 
             InitializeComponent();
-            
+
         }
 
         public async Task InitializeSystem()
@@ -71,9 +71,9 @@ namespace FingerPrint.View
         private void GetUserInfo()
         {
             tb_firstName.Text = "FirstName: " + _user.FirstName;
-            tb_lastName.Text = "LastName: " +_user.LastName;
-            tb_job.Text ="Job: "+ _user.JobName;
-            tb_birthDate.Text = "BirthDate: "+ _user.BirthDate.ToString("dd/MM/yyyy");
+            tb_lastName.Text = "LastName: " + _user.LastName;
+            tb_job.Text = "Job: " + _user.JobName;
+            tb_birthDate.Text = "BirthDate: " + _user.BirthDate.ToString("dd/MM/yyyy");
 
 
         }
@@ -86,6 +86,7 @@ namespace FingerPrint.View
 
         private async void dataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
+
             var id = (e.Row.Item as UserModel).Id;
             var UserEditIndo = await new DataController().GetUserInfo(id);
             new AddEditUser(this, UserEditIndo).Show();
@@ -93,7 +94,7 @@ namespace FingerPrint.View
         }
 
         //Alterar, executando sempre que tela maximiza
-        
+
 
         private void btn_logoff_Click(object sender, RoutedEventArgs e)
         {
@@ -101,12 +102,44 @@ namespace FingerPrint.View
             this.Close();
         }
 
-        
+
         private async void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if(this.IsVisible == true)
+            if (this.IsVisible == true)
             {
                 await InitializeSystem();
+            }
+        }
+
+
+
+        private async void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                foreach (var row in dataGrid.SelectedCells)
+                {
+                    var id = (row.Item as UserModel).Id;
+                    await new DataController().DeleteUser(id);
+                }
+            }
+        }
+
+        private async void dataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                var row = dataGrid.SelectedItem;
+
+
+                if (!row.ToString().Equals("{NewItemPlaceholder}"))
+                {
+
+                    var id = (row as UserModel).Id;
+                    await new DataController().DeleteUser(id);
+
+                }
+
             }
         }
     }

@@ -57,6 +57,11 @@ namespace FingerPrint.Controller
         {
             return await _dataEvent.DeleteFingerprint(id);
         }
+
+        public async Task<bool> DeleteUser(int id)
+        {
+            return await _dataEvent.DeleteUser(id);
+        }
         #endregion
 
 

@@ -83,6 +83,24 @@ namespace FingerPrint.Events
             });
         }
 
+        public async Task<bool> AddFinger(FingerprintModel user)
+        {
+            return await Task.Run<bool>(async () =>
+            {
+                try
+                {
+
+                    await _fingerPrintData.Create(user);
+                    return true;
+
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            });
+        }
+
         public async Task<bool> EditUserInfo(UserCompleteDataModel user)
         {
             return await Task.Run<bool>(async () =>
@@ -99,15 +117,15 @@ namespace FingerPrint.Events
                 }
             });
         }
+                
 
-        public async Task<bool> AddFinger(FingerprintModel user)
+        public async Task<bool> DeleteFingerprint(int id)
         {
             return await Task.Run<bool>(async () =>
             {
                 try
                 {
-                    
-                    await _fingerPrintData.Create(user);                    
+                    await _fingerPrintData.Delete(id);
                     return true;
 
                 }
@@ -118,13 +136,21 @@ namespace FingerPrint.Events
             });
         }
 
-        public async Task<bool> DeleteFingerprint(int id)
+        public async Task<bool> DeleteUser(int id)
         {
             return await Task.Run<bool>(async () =>
             {
                 try
                 {
-                    await _fingerPrintData.Delete(id);
+                    var rightsID = await _userRights.Get(id);
+                    await _userRights.Delete(rightsID.Id);
+                                        
+                    var fingerPrintsIDs = await _fingerPrintData.Get(id);
+                    foreach (var fingerprint in fingerPrintsIDs)
+                        await _fingerPrintData.Delete(fingerprint.Id);
+
+                    await _userData.Delete(id);
+
                     return true;
 
                 }
