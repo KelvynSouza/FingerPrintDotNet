@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 
 namespace FingerPrint.Tests.NamesPace2
 {
@@ -20,6 +21,7 @@ namespace FingerPrint.Tests.NamesPace2
         public void Test4()
         {
             var b = "b";
+            Console.WriteLine("Testando Output");
             Assert.AreNotEqual("b", b);
         }
     }

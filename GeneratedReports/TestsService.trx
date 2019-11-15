@@ -1,58 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TestRun id="ca5c304f-54fb-47ff-bfe9-895e37a1896d" name="Kelvyn@DESKTOP-IA89BQF 2019-11-01 10:07:57" runUser="DESKTOP-IA89BQF\Kelvyn" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
-  <Times creation="2019-11-01T10:07:57.3074524-03:00" queuing="2019-11-01T10:07:57.3074539-03:00" start="2019-11-01T10:07:55.1612582-03:00" finish="2019-11-01T10:07:57.3275331-03:00" />
-  <TestSettings name="default" id="7e7fb522-4cbb-4c7b-a212-f38d033064b7">
-    <Deployment runDeploymentRoot="Kelvyn_DESKTOP-IA89BQF_2019-11-01_10_07_57" />
+<TestRun id="ed41b8e6-9b7b-4269-8771-970b4968dcfd" name="carlo@KELVYNPC 2019-11-11 22:51:52" runUser="KELVYNPC\carlo" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2019-11-11T22:51:52.4020966-03:00" queuing="2019-11-11T22:51:52.4020986-03:00" start="2019-11-11T22:51:51.4033409-03:00" finish="2019-11-11T22:51:52.4289571-03:00" />
+  <TestSettings name="default" id="8c089706-aba5-46f1-a877-5f363c7ce7b8">
+    <Deployment runDeploymentRoot="carlo_KELVYNPC_2019-11-11_22_51_52" />
   </TestSettings>
   <Results>
-    <UnitTestResult executionId="d916fbba-de39-4c1e-bb2d-d76c9be760ad" testId="e7078b02-36a0-dd88-0a87-470ebcabc4ec" testName="Test3" computerName="DESKTOP-IA89BQF" duration="00:00:00.0001730" startTime="2019-11-01T10:07:57.0000000-03:00" endTime="2019-11-01T10:07:57.0000000-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d916fbba-de39-4c1e-bb2d-d76c9be760ad" />
-    <UnitTestResult executionId="cb66f092-976c-46d1-8973-9e3343eaaa3c" testId="8b5c45a3-b9dd-5446-c79f-600489862e24" testName="Test1" computerName="DESKTOP-IA89BQF" duration="00:00:00.0064630" startTime="2019-11-01T10:07:56.0000000-03:00" endTime="2019-11-01T10:07:56.0000000-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cb66f092-976c-46d1-8973-9e3343eaaa3c" />
-    <UnitTestResult executionId="54823844-d7db-4f1e-987b-a46108fcd2e4" testId="d9f45331-c7f0-1b88-b2f3-8ff0fe2a9aaf" testName="Test2" computerName="DESKTOP-IA89BQF" duration="00:00:00.1524480" startTime="2019-11-01T10:07:56.0000000-03:00" endTime="2019-11-01T10:07:57.0000000-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="54823844-d7db-4f1e-987b-a46108fcd2e4">
+    <UnitTestResult executionId="2c877b07-ae24-46d4-9568-79d4ba47d59b" testId="8b5c45a3-b9dd-5446-c79f-600489862e24" testName="Test1" computerName="KELVYNPC" duration="00:00:00.0072700" startTime="2019-11-11T22:51:52.0000000-03:00" endTime="2019-11-11T22:51:52.0000000-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2c877b07-ae24-46d4-9568-79d4ba47d59b" />
+    <UnitTestResult executionId="5a15c805-3046-4b7d-acf7-ddeecae22002" testId="d9f45331-c7f0-1b88-b2f3-8ff0fe2a9aaf" testName="Test2" computerName="KELVYNPC" duration="00:00:00.0424550" startTime="2019-11-11T22:51:52.0000000-03:00" endTime="2019-11-11T22:51:52.0000000-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5a15c805-3046-4b7d-acf7-ddeecae22002">
       <Output>
         <ErrorInfo>
           <Message>  Expected: not equal to "b"&#xD;
   But was:  "b"&#xD;
 </Message>
-          <StackTrace>   at FingerPrint.Tests.NamesPace1.TestsClass1.Test2() in C:\git\FingerPrintDotNet\FingerPrint.Tests\UnitTest1.cs:line 23&#xD;
+          <StackTrace>   at FingerPrint.Tests.NamesPace1.TestsClass1.Test2() in C:\Users\carlo\source\repos\FingerPrintDotNet\FingerPrint.Tests\UnitTest1.cs:line 23&#xD;
 </StackTrace>
         </ErrorInfo>
       </Output>
     </UnitTestResult>
-    <UnitTestResult executionId="1bcff6f4-7a1e-4146-a1fb-95d422d8dffc" testId="12452d58-d531-5c9b-83c8-84368f94507c" testName="Test4" computerName="DESKTOP-IA89BQF" duration="00:00:00.0007120" startTime="2019-11-01T10:07:57.0000000-03:00" endTime="2019-11-01T10:07:57.0000000-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1bcff6f4-7a1e-4146-a1fb-95d422d8dffc">
+    <UnitTestResult executionId="540ccc08-4a32-4009-9bf5-09748541c4e9" testId="12452d58-d531-5c9b-83c8-84368f94507c" testName="Test4" computerName="KELVYNPC" duration="00:00:00.0008180" startTime="2019-11-11T22:51:52.0000000-03:00" endTime="2019-11-11T22:51:52.0000000-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="540ccc08-4a32-4009-9bf5-09748541c4e9">
       <Output>
+        <StdOut>Testando Output</StdOut>
         <ErrorInfo>
           <Message>  Expected: not equal to "b"&#xD;
   But was:  "b"&#xD;
 </Message>
-          <StackTrace>   at FingerPrint.Tests.NamesPace2.TestsClass2.Test4() in C:\git\FingerPrintDotNet\FingerPrint.Tests\UnitTest2.cs:line 23&#xD;
+          <StackTrace>   at FingerPrint.Tests.NamesPace2.TestsClass2.Test4() in C:\Users\carlo\source\repos\FingerPrintDotNet\FingerPrint.Tests\UnitTest2.cs:line 25&#xD;
 </StackTrace>
         </ErrorInfo>
       </Output>
     </UnitTestResult>
+    <UnitTestResult executionId="0ddef7e2-1e01-4820-830c-04da4e5b322c" testId="e7078b02-36a0-dd88-0a87-470ebcabc4ec" testName="Test3" computerName="KELVYNPC" duration="00:00:00.0001510" startTime="2019-11-11T22:51:52.0000000-03:00" endTime="2019-11-11T22:51:52.0000000-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0ddef7e2-1e01-4820-830c-04da4e5b322c" />
   </Results>
   <TestDefinitions>
-    <UnitTest name="Test2" storage="c:\git\fingerprintdotnet\fingerprint.tests\bin\debug\netcoreapp3.0\fingerprint.tests.dll" id="d9f45331-c7f0-1b88-b2f3-8ff0fe2a9aaf">
-      <Execution id="54823844-d7db-4f1e-987b-a46108fcd2e4" />
-      <TestMethod codeBase="C:\git\FingerPrintDotNet\FingerPrint.Tests\bin\Debug\netcoreapp3.0\FingerPrint.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="FingerPrint.Tests.NamesPace1.TestsClass1" name="Test2" />
+    <UnitTest name="Test2" storage="c:\users\carlo\source\repos\fingerprintdotnet\fingerprint.tests\bin\debug\netcoreapp3.0\fingerprint.tests.dll" id="d9f45331-c7f0-1b88-b2f3-8ff0fe2a9aaf">
+      <Execution id="5a15c805-3046-4b7d-acf7-ddeecae22002" />
+      <TestMethod codeBase="C:\Users\carlo\source\repos\FingerPrintDotNet\FingerPrint.Tests\bin\Debug\netcoreapp3.0\FingerPrint.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="FingerPrint.Tests.NamesPace1.TestsClass1" name="Test2" />
     </UnitTest>
-    <UnitTest name="Test3" storage="c:\git\fingerprintdotnet\fingerprint.tests\bin\debug\netcoreapp3.0\fingerprint.tests.dll" id="e7078b02-36a0-dd88-0a87-470ebcabc4ec">
-      <Execution id="d916fbba-de39-4c1e-bb2d-d76c9be760ad" />
-      <TestMethod codeBase="C:\git\FingerPrintDotNet\FingerPrint.Tests\bin\Debug\netcoreapp3.0\FingerPrint.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="FingerPrint.Tests.NamesPace2.TestsClass2" name="Test3" />
+    <UnitTest name="Test3" storage="c:\users\carlo\source\repos\fingerprintdotnet\fingerprint.tests\bin\debug\netcoreapp3.0\fingerprint.tests.dll" id="e7078b02-36a0-dd88-0a87-470ebcabc4ec">
+      <Execution id="0ddef7e2-1e01-4820-830c-04da4e5b322c" />
+      <TestMethod codeBase="C:\Users\carlo\source\repos\FingerPrintDotNet\FingerPrint.Tests\bin\Debug\netcoreapp3.0\FingerPrint.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="FingerPrint.Tests.NamesPace2.TestsClass2" name="Test3" />
     </UnitTest>
-    <UnitTest name="Test4" storage="c:\git\fingerprintdotnet\fingerprint.tests\bin\debug\netcoreapp3.0\fingerprint.tests.dll" id="12452d58-d531-5c9b-83c8-84368f94507c">
-      <Execution id="1bcff6f4-7a1e-4146-a1fb-95d422d8dffc" />
-      <TestMethod codeBase="C:\git\FingerPrintDotNet\FingerPrint.Tests\bin\Debug\netcoreapp3.0\FingerPrint.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="FingerPrint.Tests.NamesPace2.TestsClass2" name="Test4" />
+    <UnitTest name="Test4" storage="c:\users\carlo\source\repos\fingerprintdotnet\fingerprint.tests\bin\debug\netcoreapp3.0\fingerprint.tests.dll" id="12452d58-d531-5c9b-83c8-84368f94507c">
+      <Execution id="540ccc08-4a32-4009-9bf5-09748541c4e9" />
+      <TestMethod codeBase="C:\Users\carlo\source\repos\FingerPrintDotNet\FingerPrint.Tests\bin\Debug\netcoreapp3.0\FingerPrint.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="FingerPrint.Tests.NamesPace2.TestsClass2" name="Test4" />
     </UnitTest>
-    <UnitTest name="Test1" storage="c:\git\fingerprintdotnet\fingerprint.tests\bin\debug\netcoreapp3.0\fingerprint.tests.dll" id="8b5c45a3-b9dd-5446-c79f-600489862e24">
-      <Execution id="cb66f092-976c-46d1-8973-9e3343eaaa3c" />
-      <TestMethod codeBase="C:\git\FingerPrintDotNet\FingerPrint.Tests\bin\Debug\netcoreapp3.0\FingerPrint.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="FingerPrint.Tests.NamesPace1.TestsClass1" name="Test1" />
+    <UnitTest name="Test1" storage="c:\users\carlo\source\repos\fingerprintdotnet\fingerprint.tests\bin\debug\netcoreapp3.0\fingerprint.tests.dll" id="8b5c45a3-b9dd-5446-c79f-600489862e24">
+      <Execution id="2c877b07-ae24-46d4-9568-79d4ba47d59b" />
+      <TestMethod codeBase="C:\Users\carlo\source\repos\FingerPrintDotNet\FingerPrint.Tests\bin\Debug\netcoreapp3.0\FingerPrint.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="FingerPrint.Tests.NamesPace1.TestsClass1" name="Test1" />
     </UnitTest>
   </TestDefinitions>
   <TestEntries>
-    <TestEntry testId="e7078b02-36a0-dd88-0a87-470ebcabc4ec" executionId="d916fbba-de39-4c1e-bb2d-d76c9be760ad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="8b5c45a3-b9dd-5446-c79f-600489862e24" executionId="cb66f092-976c-46d1-8973-9e3343eaaa3c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="d9f45331-c7f0-1b88-b2f3-8ff0fe2a9aaf" executionId="54823844-d7db-4f1e-987b-a46108fcd2e4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="12452d58-d531-5c9b-83c8-84368f94507c" executionId="1bcff6f4-7a1e-4146-a1fb-95d422d8dffc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8b5c45a3-b9dd-5446-c79f-600489862e24" executionId="2c877b07-ae24-46d4-9568-79d4ba47d59b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d9f45331-c7f0-1b88-b2f3-8ff0fe2a9aaf" executionId="5a15c805-3046-4b7d-acf7-ddeecae22002" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="12452d58-d531-5c9b-83c8-84368f94507c" executionId="540ccc08-4a32-4009-9bf5-09748541c4e9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7078b02-36a0-dd88-0a87-470ebcabc4ec" executionId="0ddef7e2-1e01-4820-830c-04da4e5b322c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
   </TestEntries>
   <TestLists>
     <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
@@ -62,7 +63,7 @@
     <Counters total="4" executed="4" passed="2" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
     <Output>
       <StdOut>NUnit Adapter 3.15.1.0: Test execution started&#xD;
-Running all tests in C:\git\FingerPrintDotNet\FingerPrint.Tests\bin\Debug\netcoreapp3.0\FingerPrint.Tests.dll&#xD;
+Running all tests in C:\Users\carlo\source\repos\FingerPrintDotNet\FingerPrint.Tests\bin\Debug\netcoreapp3.0\FingerPrint.Tests.dll&#xD;
    NUnit3TestExecutor converted 4 of 4 NUnit test cases&#xD;
 NUnit Adapter 3.15.1.0: Test execution complete&#xD;
 </StdOut>
